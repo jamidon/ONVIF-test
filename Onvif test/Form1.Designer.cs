@@ -44,6 +44,7 @@
             this.buttonMoveLeft = new System.Windows.Forms.Button();
             this.buttonMoveRight = new System.Windows.Forms.Button();
             this.buttonMoveUp = new System.Windows.Forms.Button();
+            this.buttonGoToStatus = new System.Windows.Forms.Button();
             this.buttonGetPresets = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonGetProfiles = new System.Windows.Forms.Button();
@@ -53,11 +54,21 @@
             this.buttonPresetGo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.trackBarMoveSpeed = new System.Windows.Forms.TrackBar();
+            this.buttonMoveUpLeft = new System.Windows.Forms.Button();
+            this.buttonMoveUpRight = new System.Windows.Forms.Button();
+            this.buttonMoveDownLeft = new System.Windows.Forms.Button();
+            this.buttonMoveDownRight = new System.Windows.Forms.Button();
             this.buttonGetStatus = new System.Windows.Forms.Button();
             this.buttonGetStreamURI = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.buttonGoToStatus = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxPresetName = new System.Windows.Forms.TextBox();
+            this.textBoxPresetToken = new System.Windows.Forms.TextBox();
+            this.buttonSetPreset = new System.Windows.Forms.Button();
+            this.buttonDeletePreset = new System.Windows.Forms.Button();
             this.buttonGoStream = new System.Windows.Forms.Button();
             this.comboBoxStreamURIs = new System.Windows.Forms.ComboBox();
             this.Streams = new System.Windows.Forms.Label();
@@ -66,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,7 +146,7 @@
             // buttonZoomOut
             // 
             this.buttonZoomOut.Enabled = false;
-            this.buttonZoomOut.Location = new System.Drawing.Point(168, 93);
+            this.buttonZoomOut.Location = new System.Drawing.Point(168, 135);
             this.buttonZoomOut.Name = "buttonZoomOut";
             this.buttonZoomOut.Size = new System.Drawing.Size(30, 23);
             this.buttonZoomOut.TabIndex = 13;
@@ -147,7 +159,7 @@
             // buttonZoomIn
             // 
             this.buttonZoomIn.Enabled = false;
-            this.buttonZoomIn.Location = new System.Drawing.Point(132, 93);
+            this.buttonZoomIn.Location = new System.Drawing.Point(132, 135);
             this.buttonZoomIn.Name = "buttonZoomIn";
             this.buttonZoomIn.Size = new System.Drawing.Size(30, 23);
             this.buttonZoomIn.TabIndex = 13;
@@ -161,7 +173,7 @@
             // 
             this.buttonMoveDown.AutoSize = true;
             this.buttonMoveDown.Enabled = false;
-            this.buttonMoveDown.Location = new System.Drawing.Point(43, 144);
+            this.buttonMoveDown.Location = new System.Drawing.Point(46, 121);
             this.buttonMoveDown.Name = "buttonMoveDown";
             this.buttonMoveDown.Size = new System.Drawing.Size(30, 23);
             this.buttonMoveDown.TabIndex = 11;
@@ -175,7 +187,7 @@
             // 
             this.buttonMoveLeft.AutoSize = true;
             this.buttonMoveLeft.Enabled = false;
-            this.buttonMoveLeft.Location = new System.Drawing.Point(7, 131);
+            this.buttonMoveLeft.Location = new System.Drawing.Point(6, 106);
             this.buttonMoveLeft.Name = "buttonMoveLeft";
             this.buttonMoveLeft.Size = new System.Drawing.Size(30, 23);
             this.buttonMoveLeft.TabIndex = 11;
@@ -189,7 +201,7 @@
             // 
             this.buttonMoveRight.AutoSize = true;
             this.buttonMoveRight.Enabled = false;
-            this.buttonMoveRight.Location = new System.Drawing.Point(79, 131);
+            this.buttonMoveRight.Location = new System.Drawing.Point(87, 106);
             this.buttonMoveRight.Name = "buttonMoveRight";
             this.buttonMoveRight.Size = new System.Drawing.Size(30, 23);
             this.buttonMoveRight.TabIndex = 11;
@@ -203,7 +215,7 @@
             // 
             this.buttonMoveUp.AutoSize = true;
             this.buttonMoveUp.Enabled = false;
-            this.buttonMoveUp.Location = new System.Drawing.Point(43, 117);
+            this.buttonMoveUp.Location = new System.Drawing.Point(46, 92);
             this.buttonMoveUp.Name = "buttonMoveUp";
             this.buttonMoveUp.Size = new System.Drawing.Size(30, 23);
             this.buttonMoveUp.TabIndex = 11;
@@ -213,10 +225,22 @@
             this.buttonMoveUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMoveUp_MouseDown);
             this.buttonMoveUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
             // 
+            // buttonGoToStatus
+            // 
+            this.buttonGoToStatus.Enabled = false;
+            this.buttonGoToStatus.Location = new System.Drawing.Point(211, 22);
+            this.buttonGoToStatus.Name = "buttonGoToStatus";
+            this.buttonGoToStatus.Size = new System.Drawing.Size(75, 23);
+            this.buttonGoToStatus.TabIndex = 13;
+            this.buttonGoToStatus.Text = "GoTo";
+            this.toolTip1.SetToolTip(this.buttonGoToStatus, "Go to position of last status cmd");
+            this.buttonGoToStatus.UseVisualStyleBackColor = true;
+            this.buttonGoToStatus.Click += new System.EventHandler(this.buttonGoToStatus_Click);
+            // 
             // buttonGetPresets
             // 
             this.buttonGetPresets.Enabled = false;
-            this.buttonGetPresets.Location = new System.Drawing.Point(6, 48);
+            this.buttonGetPresets.Location = new System.Drawing.Point(168, 48);
             this.buttonGetPresets.Name = "buttonGetPresets";
             this.buttonGetPresets.Size = new System.Drawing.Size(75, 23);
             this.buttonGetPresets.TabIndex = 5;
@@ -289,6 +313,10 @@
             this.groupBox1.Controls.Add(this.buttonZoomIn);
             this.groupBox1.Controls.Add(this.trackBarMoveSpeed);
             this.groupBox1.Controls.Add(this.buttonMoveDown);
+            this.groupBox1.Controls.Add(this.buttonMoveUpLeft);
+            this.groupBox1.Controls.Add(this.buttonMoveUpRight);
+            this.groupBox1.Controls.Add(this.buttonMoveDownLeft);
+            this.groupBox1.Controls.Add(this.buttonMoveDownRight);
             this.groupBox1.Controls.Add(this.buttonMoveLeft);
             this.groupBox1.Controls.Add(this.buttonMoveRight);
             this.groupBox1.Controls.Add(this.buttonMoveUp);
@@ -299,20 +327,72 @@
             this.groupBox1.Controls.Add(this.buttonGetPresets);
             this.groupBox1.Location = new System.Drawing.Point(9, 123);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 173);
+            this.groupBox1.Size = new System.Drawing.Size(291, 169);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Get";
             // 
             // trackBarMoveSpeed
             // 
-            this.trackBarMoveSpeed.Location = new System.Drawing.Point(125, 122);
+            this.trackBarMoveSpeed.Location = new System.Drawing.Point(125, 77);
             this.trackBarMoveSpeed.Maximum = 100;
             this.trackBarMoveSpeed.Name = "trackBarMoveSpeed";
             this.trackBarMoveSpeed.Size = new System.Drawing.Size(153, 45);
             this.trackBarMoveSpeed.TabIndex = 12;
             this.trackBarMoveSpeed.Value = 75;
             this.trackBarMoveSpeed.Scroll += new System.EventHandler(this.trackBarMoveSpeed_Scroll);
+            // 
+            // buttonMoveUpLeft
+            // 
+            this.buttonMoveUpLeft.AutoSize = true;
+            this.buttonMoveUpLeft.Enabled = false;
+            this.buttonMoveUpLeft.Location = new System.Drawing.Point(6, 77);
+            this.buttonMoveUpLeft.Name = "buttonMoveUpLeft";
+            this.buttonMoveUpLeft.Size = new System.Drawing.Size(31, 23);
+            this.buttonMoveUpLeft.TabIndex = 11;
+            this.buttonMoveUpLeft.Text = "UL";
+            this.buttonMoveUpLeft.UseVisualStyleBackColor = true;
+            this.buttonMoveUpLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMoveUpLeft_MouseDown);
+            this.buttonMoveUpLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
+            // 
+            // buttonMoveUpRight
+            // 
+            this.buttonMoveUpRight.AutoSize = true;
+            this.buttonMoveUpRight.Enabled = false;
+            this.buttonMoveUpRight.Location = new System.Drawing.Point(87, 77);
+            this.buttonMoveUpRight.Name = "buttonMoveUpRight";
+            this.buttonMoveUpRight.Size = new System.Drawing.Size(33, 23);
+            this.buttonMoveUpRight.TabIndex = 11;
+            this.buttonMoveUpRight.Text = "UR";
+            this.buttonMoveUpRight.UseVisualStyleBackColor = true;
+            this.buttonMoveUpRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMoveUpRight_MouseDown);
+            this.buttonMoveUpRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
+            // 
+            // buttonMoveDownLeft
+            // 
+            this.buttonMoveDownLeft.AutoSize = true;
+            this.buttonMoveDownLeft.Enabled = false;
+            this.buttonMoveDownLeft.Location = new System.Drawing.Point(6, 135);
+            this.buttonMoveDownLeft.Name = "buttonMoveDownLeft";
+            this.buttonMoveDownLeft.Size = new System.Drawing.Size(31, 23);
+            this.buttonMoveDownLeft.TabIndex = 11;
+            this.buttonMoveDownLeft.Text = "DL";
+            this.buttonMoveDownLeft.UseVisualStyleBackColor = true;
+            this.buttonMoveDownLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMoveDownLeft_MouseDown);
+            this.buttonMoveDownLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
+            // 
+            // buttonMoveDownRight
+            // 
+            this.buttonMoveDownRight.AutoSize = true;
+            this.buttonMoveDownRight.Enabled = false;
+            this.buttonMoveDownRight.Location = new System.Drawing.Point(87, 135);
+            this.buttonMoveDownRight.Name = "buttonMoveDownRight";
+            this.buttonMoveDownRight.Size = new System.Drawing.Size(33, 23);
+            this.buttonMoveDownRight.TabIndex = 11;
+            this.buttonMoveDownRight.Text = "DR";
+            this.buttonMoveDownRight.UseVisualStyleBackColor = true;
+            this.buttonMoveDownRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMoveDownRight_MouseDown);
+            this.buttonMoveDownRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
             // 
             // buttonGetStatus
             // 
@@ -353,6 +433,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.buttonGoToStatus);
             this.groupBox3.Controls.Add(this.buttonGoStream);
             this.groupBox3.Controls.Add(this.comboBoxStreamURIs);
@@ -362,22 +443,83 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.buttonPresetGo);
             this.groupBox3.Controls.Add(this.comboBoxProfileTokens);
-            this.groupBox3.Location = new System.Drawing.Point(9, 302);
+            this.groupBox3.Location = new System.Drawing.Point(9, 298);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(294, 173);
+            this.groupBox3.Size = new System.Drawing.Size(294, 179);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Commands";
             // 
-            // buttonGoToStatus
+            // groupBox4
             // 
-            this.buttonGoToStatus.Location = new System.Drawing.Point(211, 22);
-            this.buttonGoToStatus.Name = "buttonGoToStatus";
-            this.buttonGoToStatus.Size = new System.Drawing.Size(75, 23);
-            this.buttonGoToStatus.TabIndex = 13;
-            this.buttonGoToStatus.Text = "GoTo";
-            this.buttonGoToStatus.UseVisualStyleBackColor = true;
-            this.buttonGoToStatus.Click += new System.EventHandler(this.buttonGoToStatus_Click);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.textBoxPresetName);
+            this.groupBox4.Controls.Add(this.textBoxPresetToken);
+            this.groupBox4.Controls.Add(this.buttonSetPreset);
+            this.groupBox4.Controls.Add(this.buttonDeletePreset);
+            this.groupBox4.Location = new System.Drawing.Point(6, 103);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(280, 70);
+            this.groupBox4.TabIndex = 14;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Set Presets";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Token";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Name";
+            // 
+            // textBoxPresetName
+            // 
+            this.textBoxPresetName.Location = new System.Drawing.Point(51, 14);
+            this.textBoxPresetName.Name = "textBoxPresetName";
+            this.textBoxPresetName.Size = new System.Drawing.Size(148, 20);
+            this.textBoxPresetName.TabIndex = 1;
+            this.textBoxPresetName.TextChanged += new System.EventHandler(this.textBoxPresetName_TextChanged);
+            // 
+            // textBoxPresetToken
+            // 
+            this.textBoxPresetToken.Location = new System.Drawing.Point(51, 40);
+            this.textBoxPresetToken.Name = "textBoxPresetToken";
+            this.textBoxPresetToken.Size = new System.Drawing.Size(148, 20);
+            this.textBoxPresetToken.TabIndex = 1;
+            this.textBoxPresetToken.TextChanged += new System.EventHandler(this.textBoxPresetToken_TextChanged);
+            // 
+            // buttonSetPreset
+            // 
+            this.buttonSetPreset.Enabled = false;
+            this.buttonSetPreset.Location = new System.Drawing.Point(205, 9);
+            this.buttonSetPreset.Name = "buttonSetPreset";
+            this.buttonSetPreset.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetPreset.TabIndex = 0;
+            this.buttonSetPreset.Text = "Set";
+            this.buttonSetPreset.UseVisualStyleBackColor = true;
+            this.buttonSetPreset.Click += new System.EventHandler(this.buttonSetPreset_Click);
+            // 
+            // buttonDeletePreset
+            // 
+            this.buttonDeletePreset.Enabled = false;
+            this.buttonDeletePreset.Location = new System.Drawing.Point(205, 38);
+            this.buttonDeletePreset.Name = "buttonDeletePreset";
+            this.buttonDeletePreset.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeletePreset.TabIndex = 0;
+            this.buttonDeletePreset.Text = "Delete";
+            this.buttonDeletePreset.UseVisualStyleBackColor = true;
+            this.buttonDeletePreset.Click += new System.EventHandler(this.buttonDeletePreset_Click);
             // 
             // buttonGoStream
             // 
@@ -415,7 +557,7 @@
             this.vlcControl1.BackColor = System.Drawing.Color.Black;
             this.vlcControl1.Location = new System.Drawing.Point(310, 12);
             this.vlcControl1.Name = "vlcControl1";
-            this.vlcControl1.Size = new System.Drawing.Size(626, 460);
+            this.vlcControl1.Size = new System.Drawing.Size(626, 465);
             this.vlcControl1.Spu = -1;
             this.vlcControl1.TabIndex = 14;
             this.vlcControl1.Text = "vlcControl1";
@@ -441,6 +583,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl1)).EndInit();
             this.ResumeLayout(false);
 
@@ -480,6 +624,17 @@
         private System.Windows.Forms.TrackBar trackBarMoveSpeed;
         private System.Windows.Forms.Button buttonZoomOut;
         private System.Windows.Forms.Button buttonZoomIn;
+        private System.Windows.Forms.Button buttonMoveUpLeft;
+        private System.Windows.Forms.Button buttonMoveUpRight;
+        private System.Windows.Forms.Button buttonMoveDownLeft;
+        private System.Windows.Forms.Button buttonMoveDownRight;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button buttonDeletePreset;
+        private System.Windows.Forms.Button buttonSetPreset;
+        private System.Windows.Forms.TextBox textBoxPresetName;
+        private System.Windows.Forms.TextBox textBoxPresetToken;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 

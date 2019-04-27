@@ -33,13 +33,15 @@ namespace Onvif_test
         void createDeviceClient()
         {
             var serviceAddress = new EndpointAddress(textBoxUrl.Text);
-            var httpBinding = new HttpTransportBindingElement();
+            var httpBinding = new HttpTransportBindingElement
+            {
+                AuthenticationScheme = AuthenticationSchemes.Digest
+            };
 
-            httpBinding.AuthenticationScheme = AuthenticationSchemes.Digest;
-
-            var messageElement = new TextMessageEncodingBindingElement();
-
-            messageElement.MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None);
+            var messageElement = new TextMessageEncodingBindingElement
+            {
+                MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
+            };
 
             var bind = new CustomBinding(messageElement, httpBinding);
 
@@ -96,7 +98,7 @@ namespace Onvif_test
             {
                 createMediaClient();
             }
-            if (ptzClient==null)
+            if (ptzClient == null)
             {
                 createPtzClient();
             }
@@ -145,9 +147,13 @@ namespace Onvif_test
         private void comboBoxPresets_SelectedIndexChanged(object sender, EventArgs e)
         {
             var name = comboBoxPresets.SelectedItem.ToString();
-            buttonPresetGo.Enabled = ptzPresets.Length > 0
-                && ptzPresets.Where(p => p.Name == name).FirstOrDefault() != null
-                ;
+            var preset = ptzPresets.Where(p => p.Name == name).FirstOrDefault();
+            if (preset != null)
+            {
+                textBoxPresetName.Text = name;
+                textBoxPresetToken.Text = preset.token;
+            }
+            buttonPresetGo.Enabled = preset != null;
         }
 
         private void comboBoxProfileTokens_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,7 +161,11 @@ namespace Onvif_test
             buttonGetPresets.Enabled =
                 buttonGetStatus.Enabled =
                 buttonMoveDown.Enabled =
+                buttonMoveDownRight.Enabled =
+                buttonMoveDownLeft.Enabled =
                 buttonMoveUp.Enabled =
+                buttonMoveUpRight.Enabled =
+                buttonMoveUpLeft.Enabled =
                 buttonMoveRight.Enabled =
                 buttonMoveLeft.Enabled =
                 buttonZoomIn.Enabled =
@@ -216,6 +226,7 @@ namespace Onvif_test
             try
             {
                 ptzStatus = ptzClient.GetStatus(comboBoxProfileTokens.SelectedItem.ToString());
+                buttonGoToStatus.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -324,6 +335,90 @@ namespace Onvif_test
                 MessageBox.Show(ex.Message, "TiltDown failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void buttonMoveUpLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                ptzClient.MoveUpLeft(comboBoxProfileTokens.SelectedItem.ToString(), trackBarMoveSpeed.Value * 0.01);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "TiltDown failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonMoveUpRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                ptzClient.MoveUpRight(comboBoxProfileTokens.SelectedItem.ToString(), trackBarMoveSpeed.Value * 0.01);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "TiltDown failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonMoveDownRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                ptzClient.MoveDownRight(comboBoxProfileTokens.SelectedItem.ToString(), trackBarMoveSpeed.Value * 0.01);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "TiltDown failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonMoveDownLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                ptzClient.MoveDownLeft(comboBoxProfileTokens.SelectedItem.ToString(), trackBarMoveSpeed.Value * 0.01);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "TiltDown failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonSetPreset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string presetToken = null;
+                ptzClient.SetPreset(comboBoxProfileTokens.SelectedItem.ToString(), textBoxPresetName.Text, ref presetToken);
+                textBoxPresetToken.Text = presetToken;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "SetPreset failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonDeletePreset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ptzClient.DeletePreset(comboBoxProfileTokens.SelectedItem.ToString(), textBoxPresetToken.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DeletePreset failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void textBoxPresetName_TextChanged(object sender, EventArgs e)
+        {
+            buttonSetPreset.Enabled = (sender as TextBox).Text.Length > 0;
+        }
+
+        private void textBoxPresetToken_TextChanged(object sender, EventArgs e)
+        {
+            buttonDeletePreset.Enabled = (sender as TextBox).Text.Length > 0;
+        }
     }
 
     sealed public class PtzClient
@@ -332,11 +427,15 @@ namespace Onvif_test
 
         public PtzClient(EndpointAddress epa, string username, string password)
         {
-            var httpBinding = new HttpTransportBindingElement();
-            httpBinding.AuthenticationScheme = AuthenticationSchemes.Digest;
+            var httpBinding = new HttpTransportBindingElement
+            {
+                AuthenticationScheme = AuthenticationSchemes.Digest
+            };
 
-            var messageElement = new TextMessageEncodingBindingElement();
-            messageElement.MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None);
+            var messageElement = new TextMessageEncodingBindingElement
+            {
+                MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
+            };
 
             var bind = new CustomBinding(messageElement, httpBinding);
             var behavior = new PasswordDigestBehavior(username, password);
@@ -345,69 +444,120 @@ namespace Onvif_test
             Client.Endpoint.EndpointBehaviors.Add(behavior);
         }
 
-        public void GotoPosition(string profileToken, PTZ.PTZVector position, double percentSpeed = 0.1)
+        private bool IsInitialized { get; set; }
+        private PTZ.PTZConfiguration[] ptzConfigurations { get; set; }
+        private PTZ.PTZNode ptzNode { get; set; }
+        private float ptzPanSpeedMin = 0;
+        private float ptzPanSpeedMax = 1;
+        private float ptzZoomSpeedMin = 0;
+        private float ptzZoomSpeedMax = 1;
+        public void GetConfiguration()
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.PanTilt = new PTZ.Vector2D();
-            velocity.PanTilt.x = (float)(1.0 * percentSpeed);
-            velocity.PanTilt.y = (float)(1.0 * percentSpeed);
-            Client.AbsoluteMove(profileToken, position, new PTZ.PTZSpeed());
+            if (!IsInitialized)
+            {
+                ptzConfigurations = Client.GetConfigurations();
+                ptzNode = Client.GetNode(ptzConfigurations[0].NodeToken);
+                ptzPanSpeedMax = ptzNode.SupportedPTZSpaces.PanTiltSpeedSpace[0].XRange.Max;
+                ptzPanSpeedMin = ptzNode.SupportedPTZSpaces.PanTiltSpeedSpace[0].XRange.Min;
+                ptzZoomSpeedMax = ptzNode.SupportedPTZSpaces.ZoomSpeedSpace[0].XRange.Max;
+                ptzZoomSpeedMin = ptzNode.SupportedPTZSpaces.ZoomSpeedSpace[0].XRange.Min;
+
+                IsInitialized = true;
+            }
         }
         public void Stop(string profileToken)
         {
             Client.Stop(profileToken, true, true);
         }
+        public void Move(string profileToken, PTZ.PTZSpeed velocity, string timeout = null)
+        {
+            // maybe get configuration
+            GetConfiguration();
+
+            Client.ContinuousMove(profileToken, velocity, timeout);
+        }
         public void ZoomOut(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.Zoom = new PTZ.Vector1D();
-            velocity.Zoom.x = (float)(-1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { Zoom = new PTZ.Vector1D { x = (float)(-ptzZoomSpeedMax * percentSpeed) } });
         }
         public void ZoomIn(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.Zoom = new PTZ.Vector1D();
-            velocity.Zoom.x = (float)(1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { Zoom = new PTZ.Vector1D { x = (float)(ptzZoomSpeedMax * percentSpeed) } });
         }
         public void PanLeft(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.PanTilt = new PTZ.Vector2D();
-            velocity.PanTilt.x = (float)(-1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(-ptzPanSpeedMax * percentSpeed) } });
         }
         public void PanRight(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.PanTilt = new PTZ.Vector2D();
-            velocity.PanTilt.x = (float)(1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(ptzPanSpeedMax * percentSpeed) } });
         }
         public void TiltUp(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.PanTilt = new PTZ.Vector2D();
-            velocity.PanTilt.y = (float)(1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(ptzPanSpeedMax * percentSpeed) } });
         }
         public void TiltDown(string profileToken, double percentSpeed = 0.1)
         {
-            var velocity = new PTZ.PTZSpeed();
-            velocity.PanTilt = new PTZ.Vector2D();
-            velocity.PanTilt.y = (float)(-1.0 * percentSpeed);
-
-            Client.ContinuousMove(profileToken, velocity, null);
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(-ptzPanSpeedMax * percentSpeed) } });
         }
-        public void GotoPreset(string profileToken, string presetToken, double percentSpeed = 0.1)
+        public void MoveDownLeft(string profileToken, double percentSpeed = 0.1)
+        {
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(-ptzPanSpeedMax * percentSpeed), y = (float)(-ptzPanSpeedMax * percentSpeed) } });
+        }
+        public void MoveDownRight(string profileToken, double percentSpeed = 0.1)
+        {
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(ptzPanSpeedMax * percentSpeed), y = (float)(-ptzPanSpeedMax * percentSpeed) } });
+        }
+        public void MoveUpLeft(string profileToken, double percentSpeed = 0.1)
+        {
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(-ptzPanSpeedMax * percentSpeed), y = (float)(ptzPanSpeedMax * percentSpeed) } });
+        }
+        public void MoveUpRight(string profileToken, double percentSpeed = 0.1)
+        {
+            Move(profileToken,
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { x = (float)(ptzPanSpeedMax * percentSpeed), y = (float)(ptzPanSpeedMax * percentSpeed) } });
+        }
+        public void GotoPreset(string profileToken, string presetToken)
         {
             Client.GotoPreset(profileToken, presetToken, new PTZ.PTZSpeed());
+            //Client.GotoPreset(profileToken, presetToken, new PTZ.PTZSpeed
+            //{
+            //    Zoom = new PTZ.Vector1D { x = (float)(ptzZoomSpeedMax * percentSpeed) },
+            //    PanTilt = new PTZ.Vector2D
+            //    {
+            //        x = (float)(ptzPanSpeedMax * percentSpeed),
+            //        y = (float)(ptzPanSpeedMax * percentSpeed)
+            //    }
+            //});
+        }
+        public void GotoPosition(string profileToken, PTZ.PTZVector position)
+        {
+            Client.AbsoluteMove(profileToken, position, new PTZ.PTZSpeed());
+            //Client.AbsoluteMove(profileToken, position, new PTZ.PTZSpeed
+            //{
+            //    PanTilt = new PTZ.Vector2D
+            //    {
+            //        x = (float)(ptzPanSpeedMax * percentSpeed),
+            //        y = (float)(ptzPanSpeedMax * percentSpeed)
+            //    }
+            //});
+        }
+        public void SetPreset(string profileToken, string presetName, ref string presetToken)
+        {
+            Client.SetPreset(profileToken, presetName, ref presetToken);
+        }
+        public void DeletePreset(string profileToken, string presetToken)
+        {
+            Client.RemovePreset(profileToken, presetToken);
         }
         public PTZ.PTZPreset[] GetPresets(string profileToken)
         {
@@ -425,11 +575,15 @@ namespace Onvif_test
 
         public MediaClient(EndpointAddress epa, string username, string password)
         {
-            var httpBinding = new HttpTransportBindingElement();
-            httpBinding.AuthenticationScheme = AuthenticationSchemes.Digest;
+            var httpBinding = new HttpTransportBindingElement
+            {
+                AuthenticationScheme = AuthenticationSchemes.Digest
+            };
 
-            var messageElement = new TextMessageEncodingBindingElement();
-            messageElement.MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None);
+            var messageElement = new TextMessageEncodingBindingElement
+            {
+                MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
+            };
 
             var bind = new CustomBinding(messageElement, httpBinding);
             var behavior = new PasswordDigestBehavior(username, password);
