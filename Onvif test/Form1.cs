@@ -424,9 +424,16 @@ namespace Onvif_test
     sealed public class PtzClient
     {
         private PTZ.PTZClient Client { get; set; }
+        private EndpointAddress EndPointAddress { get; set; }
+        private string Username { get; set; }
+        private string Password { get; set; }
 
         public PtzClient(EndpointAddress epa, string username, string password)
         {
+            EndPointAddress = epa;
+            Username = username;
+            Password = password;
+
             var httpBinding = new HttpTransportBindingElement
             {
                 AuthenticationScheme = AuthenticationSchemes.Digest
@@ -442,25 +449,39 @@ namespace Onvif_test
 
             Client = new PTZ.PTZClient(bind, epa);
             Client.Endpoint.EndpointBehaviors.Add(behavior);
+
+            // not initialized
+            IsInitialized = false;
         }
 
         private bool IsInitialized { get; set; }
+
+        #region internal camera parameters
+
         private PTZ.PTZConfiguration[] ptzConfigurations { get; set; }
         private PTZ.PTZNode ptzNode { get; set; }
         private float ptzPanSpeedMin = 0;
         private float ptzPanSpeedMax = 1;
+        private float ptzTiltSpeedMin = 0;
+        private float ptzTiltSpeedMax = 1;
         private float ptzZoomSpeedMin = 0;
         private float ptzZoomSpeedMax = 1;
-        public void GetConfiguration()
+
+        #endregion
+
+        public void GetConfiguration(string profileToken)
         {
             if (!IsInitialized)
             {
-                ptzConfigurations = Client.GetConfigurations();
-                ptzNode = Client.GetNode(ptzConfigurations[0].NodeToken);
-                ptzPanSpeedMax = ptzNode.SupportedPTZSpaces.PanTiltSpeedSpace[0].XRange.Max;
-                ptzPanSpeedMin = ptzNode.SupportedPTZSpaces.PanTiltSpeedSpace[0].XRange.Min;
-                ptzZoomSpeedMax = ptzNode.SupportedPTZSpaces.ZoomSpeedSpace[0].XRange.Max;
-                ptzZoomSpeedMin = ptzNode.SupportedPTZSpaces.ZoomSpeedSpace[0].XRange.Min;
+                var mediaClient = new MediaClient(EndPointAddress, Username, Password);
+                var profile = mediaClient.GetProfile(profileToken);
+
+                ptzPanSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Max;
+                ptzPanSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Min;
+                ptzTiltSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Max;
+                ptzTiltSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Min;
+                ptzZoomSpeedMax = profile.PTZConfiguration.ZoomLimits.Range.XRange.Max;
+                ptzZoomSpeedMin = profile.PTZConfiguration.ZoomLimits.Range.XRange.Min;
 
                 IsInitialized = true;
             }
@@ -472,7 +493,7 @@ namespace Onvif_test
         public void Move(string profileToken, PTZ.PTZSpeed velocity, string timeout = null)
         {
             // maybe get configuration
-            GetConfiguration();
+            GetConfiguration(profileToken);
 
             Client.ContinuousMove(profileToken, velocity, timeout);
         }
@@ -499,12 +520,12 @@ namespace Onvif_test
         public void TiltUp(string profileToken, double percentSpeed = 0.1)
         {
             Move(profileToken,
-                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(ptzPanSpeedMax * percentSpeed) } });
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(ptzTiltSpeedMax * percentSpeed) } });
         }
         public void TiltDown(string profileToken, double percentSpeed = 0.1)
         {
             Move(profileToken,
-                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(-ptzPanSpeedMax * percentSpeed) } });
+                new PTZ.PTZSpeed { PanTilt = new PTZ.Vector2D { y = (float)(-ptzTiltSpeedMax * percentSpeed) } });
         }
         public void MoveDownLeft(string profileToken, double percentSpeed = 0.1)
         {
@@ -559,6 +580,7 @@ namespace Onvif_test
         {
             Client.RemovePreset(profileToken, presetToken);
         }
+
         public PTZ.PTZPreset[] GetPresets(string profileToken)
         {
             return Client.GetPresets(profileToken);
@@ -595,6 +617,11 @@ namespace Onvif_test
         public Media.Profile[] GetProfiles()
         {
             return Client.GetProfiles();
+        }
+
+        public Media.Profile GetProfile(string profileToken)
+        {
+            return Client.GetProfile(profileToken);
         }
 
         public Media.VideoSourceConfiguration[] GetVideoSourceConfigurations()
