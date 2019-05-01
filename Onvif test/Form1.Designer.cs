@@ -143,7 +143,6 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
             this.textBoxPassword.TabIndex = 4;
-            this.textBoxPassword.Text = "seeatms";
             this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // buttonZoomOut
