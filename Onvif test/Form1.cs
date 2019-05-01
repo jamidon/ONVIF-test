@@ -27,33 +27,26 @@ namespace Onvif_test
         Media.Profile[] mediaProfiles { get; set; }
         Media.MediaUri[] mediaURIs { get; set; }
 
-        DeviceIO.DeviceClient deviceClient { get; set; }
-        DeviceIO.Capabilities capabilities { get; set; }
+        DeviceClient deviceClient { get; set; }
+        Device.DeviceServiceCapabilities serviceCapabilities { get; set; }
+        Device.Capabilities capabilities { get; set; }
 
-        void createDeviceClient()
+        private void createDeviceClient()
         {
-            var serviceAddress = new EndpointAddress(textBoxUrl.Text);
-            var httpBinding = new HttpTransportBindingElement
-            {
-                AuthenticationScheme = AuthenticationSchemes.Digest
-            };
-
-            var messageElement = new TextMessageEncodingBindingElement
-            {
-                MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
-            };
-
-            var bind = new CustomBinding(messageElement, httpBinding);
-
-            deviceClient = new DeviceIO.DeviceClient(bind, serviceAddress);
-            deviceClient.ClientCredentials.UserName.UserName = textBoxUsername.Text;
-            deviceClient.ClientCredentials.UserName.Password = textBoxPassword.Text;
+            deviceClient = new DeviceClient(new EndpointAddress(textBoxUrl.Text), 
+                textBoxUsername.Text, textBoxPassword.Text);
         }
 
-        void createPtzClient()
+        private void createPtzClient()
         {
-            var serviceAddress = new EndpointAddress(textBoxUrl.Text);
-            ptzClient = new PtzClient(serviceAddress, textBoxUsername.Text, textBoxPassword.Text);
+            ptzClient = new PtzClient(new EndpointAddress(textBoxUrl.Text), 
+                textBoxUsername.Text, textBoxPassword.Text);
+        }
+
+        private void createMediaClient()
+        {
+            mediaClient = new MediaClient(new EndpointAddress(textBoxUrl.Text), 
+                textBoxUsername.Text, textBoxPassword.Text);
         }
 
         private void buttonGetCapabilities_Click(object sender, EventArgs e)
@@ -65,8 +58,20 @@ namespace Onvif_test
 
             try
             {
-                capabilities = deviceClient.GetCapabilities(new[] { DeviceIO.CapabilityCategory.All });
+                capabilities = deviceClient.GetCapabilities();
                 this.toolTip1.SetToolTip(buttonGetCapabilities, capabilities.PTZ.XAddr);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetCapabilities failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            try
+            {
+                serviceCapabilities = deviceClient.GetServiceCapabilities();
+                comboBoxAuxCommands.Items.Clear();
+                comboBoxAuxCommands.Items.AddRange(serviceCapabilities.Misc.AuxiliaryCommands);
+                comboBoxAuxCommands.Enabled = comboBoxAuxCommands.Items.Count > 0;
             }
             catch (Exception ex)
             {
@@ -114,12 +119,6 @@ namespace Onvif_test
 
                 buttonGetStreamURI.Enabled = true;
             }
-        }
-
-        private void createMediaClient()
-        {
-            var serviceAddress = new EndpointAddress(textBoxUrl.Text);
-            mediaClient = new MediaClient(serviceAddress, textBoxUsername.Text, textBoxPassword.Text);
         }
 
         private void buttonPresetGo_Click(object sender, EventArgs e)
@@ -419,6 +418,17 @@ namespace Onvif_test
         {
             buttonDeletePreset.Enabled = (sender as TextBox).Text.Length > 0;
         }
+
+        private void comboBoxAuxCommands_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonGoAuxCommand.Enabled = (sender as ComboBox).SelectedIndex != -1;
+        }
+
+        private void buttonGoAuxCommand_Click(object sender, EventArgs e)
+        {
+            var response = deviceClient.SendAuxCommand(comboBoxAuxCommands.SelectedItem.ToString());
+            MessageBox.Show("Send Aux Command", response, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 
     sealed public class PtzClient
@@ -445,10 +455,12 @@ namespace Onvif_test
             };
 
             var bind = new CustomBinding(messageElement, httpBinding);
-            var behavior = new PasswordDigestBehavior(username, password);
 
             Client = new PTZ.PTZClient(bind, epa);
-            Client.Endpoint.EndpointBehaviors.Add(behavior);
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            {
+                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+            }
 
             // not initialized
             IsInitialized = false;
@@ -594,9 +606,16 @@ namespace Onvif_test
     sealed public class MediaClient
     {
         private Media.MediaClient Client { get; set; }
+        private EndpointAddress EndPointAddress { get; set; }
+        private string Username { get; set; }
+        private string Password { get; set; }
 
         public MediaClient(EndpointAddress epa, string username, string password)
         {
+            EndPointAddress = epa;
+            Username = username;
+            Password = password;
+
             var httpBinding = new HttpTransportBindingElement
             {
                 AuthenticationScheme = AuthenticationSchemes.Digest
@@ -608,10 +627,12 @@ namespace Onvif_test
             };
 
             var bind = new CustomBinding(messageElement, httpBinding);
-            var behavior = new PasswordDigestBehavior(username, password);
 
             Client = new Media.MediaClient(bind, epa);
-            Client.Endpoint.EndpointBehaviors.Add(behavior);
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            {
+                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+            }
         }
 
         public Media.Profile[] GetProfiles()
@@ -657,6 +678,65 @@ namespace Onvif_test
             }
 
             return list.ToArray();
+        }
+    }
+
+    sealed public class DeviceClient
+    {
+        private Device.DeviceClient Client { get; set; }
+        private EndpointAddress EndPointAddress { get; set; }
+        private string Username { get; set; }
+        private string Password { get; set; }
+
+        public DeviceClient(EndpointAddress epa, string username, string password)
+        {
+            EndPointAddress = epa;
+            Username = username;
+            Password = password;
+
+            var httpBinding = new HttpTransportBindingElement
+            {
+                AuthenticationScheme = AuthenticationSchemes.Digest
+            };
+
+            var messageElement = new TextMessageEncodingBindingElement
+            {
+                MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
+            };
+
+            var bind = new CustomBinding(messageElement, httpBinding);
+
+            Client = new Device.DeviceClient(bind, epa);
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            {
+                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+            }
+        }
+
+        public Device.Scope[] GetScopes()
+        {
+            return Client.GetScopes();
+        }
+        public Device.DeviceServiceCapabilities GetServiceCapabilities()
+        {
+            return Client.GetServiceCapabilities();
+        }
+        public Device.Service[] GetServices()
+        {
+            return Client.GetServices(true);
+        }
+        public Device.Capabilities GetCapabilities()
+        {
+            return Client.GetCapabilities(new[] { Device.CapabilityCategory.All });
+        }
+        public void GetDeviceInformation(out string model, out string firmwareVersion, out string serialNumber, out string hardwareId)
+        {
+            Client.GetDeviceInformation(out model, out firmwareVersion, out serialNumber, out hardwareId);
+        }
+
+        public string SendAuxCommand(string auxCommand)
+        {
+            return Client.SendAuxiliaryCommand(auxCommand);
         }
     }
 

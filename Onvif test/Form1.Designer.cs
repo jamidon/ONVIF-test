@@ -62,6 +62,8 @@
             this.buttonGetStreamURI = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonGoAuxCommand = new System.Windows.Forms.Button();
+            this.comboBoxAuxCommands = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -71,6 +73,7 @@
             this.buttonDeletePreset = new System.Windows.Forms.Button();
             this.buttonGoStream = new System.Windows.Forms.Button();
             this.comboBoxStreamURIs = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.Streams = new System.Windows.Forms.Label();
             this.vlcControl1 = new Vlc.DotNet.Forms.VlcControl();
             this.groupBox1.SuspendLayout();
@@ -433,22 +436,46 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.buttonGoAuxCommand);
+            this.groupBox3.Controls.Add(this.comboBoxAuxCommands);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.buttonGoToStatus);
             this.groupBox3.Controls.Add(this.buttonGoStream);
             this.groupBox3.Controls.Add(this.comboBoxStreamURIs);
             this.groupBox3.Controls.Add(this.comboBoxPresets);
             this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.Streams);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.buttonPresetGo);
             this.groupBox3.Controls.Add(this.comboBoxProfileTokens);
             this.groupBox3.Location = new System.Drawing.Point(9, 298);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(294, 179);
+            this.groupBox3.Size = new System.Drawing.Size(294, 206);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Commands";
+            // 
+            // buttonGoAuxCommand
+            // 
+            this.buttonGoAuxCommand.Enabled = false;
+            this.buttonGoAuxCommand.Location = new System.Drawing.Point(211, 102);
+            this.buttonGoAuxCommand.Name = "buttonGoAuxCommand";
+            this.buttonGoAuxCommand.Size = new System.Drawing.Size(75, 23);
+            this.buttonGoAuxCommand.TabIndex = 16;
+            this.buttonGoAuxCommand.Text = "Go";
+            this.buttonGoAuxCommand.UseVisualStyleBackColor = true;
+            this.buttonGoAuxCommand.Click += new System.EventHandler(this.buttonGoAuxCommand_Click);
+            // 
+            // comboBoxAuxCommands
+            // 
+            this.comboBoxAuxCommands.Enabled = false;
+            this.comboBoxAuxCommands.FormattingEnabled = true;
+            this.comboBoxAuxCommands.Location = new System.Drawing.Point(57, 104);
+            this.comboBoxAuxCommands.Name = "comboBoxAuxCommands";
+            this.comboBoxAuxCommands.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxAuxCommands.TabIndex = 15;
+            this.comboBoxAuxCommands.SelectedIndexChanged += new System.EventHandler(this.comboBoxAuxCommands_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -458,7 +485,7 @@
             this.groupBox4.Controls.Add(this.textBoxPresetToken);
             this.groupBox4.Controls.Add(this.buttonSetPreset);
             this.groupBox4.Controls.Add(this.buttonDeletePreset);
-            this.groupBox4.Location = new System.Drawing.Point(6, 103);
+            this.groupBox4.Location = new System.Drawing.Point(8, 131);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(280, 70);
             this.groupBox4.TabIndex = 14;
@@ -543,6 +570,15 @@
             this.comboBoxStreamURIs.TabIndex = 11;
             this.comboBoxStreamURIs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamURIs_SelectedIndexChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(26, 107);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Aux";
+            // 
             // Streams
             // 
             this.Streams.AutoSize = true;
@@ -557,7 +593,7 @@
             this.vlcControl1.BackColor = System.Drawing.Color.Black;
             this.vlcControl1.Location = new System.Drawing.Point(310, 12);
             this.vlcControl1.Name = "vlcControl1";
-            this.vlcControl1.Size = new System.Drawing.Size(626, 465);
+            this.vlcControl1.Size = new System.Drawing.Size(626, 492);
             this.vlcControl1.Spu = -1;
             this.vlcControl1.TabIndex = 14;
             this.vlcControl1.Text = "vlcControl1";
@@ -569,7 +605,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 484);
+            this.ClientSize = new System.Drawing.Size(944, 515);
             this.Controls.Add(this.vlcControl1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -635,6 +671,9 @@
         private System.Windows.Forms.TextBox textBoxPresetToken;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button buttonGoAuxCommand;
+        private System.Windows.Forms.ComboBox comboBoxAuxCommands;
+        private System.Windows.Forms.Label label8;
     }
 }
 

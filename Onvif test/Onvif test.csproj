@@ -71,7 +71,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\DeviceIO\Reference.cs">
+    <Compile Include="Connected Services\Device\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -106,402 +106,281 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Connected Services\DeviceIO\b-2.xsd">
+    <None Include="Connected Services\Device\b-2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\bf-2.xsd">
+    <None Include="Connected Services\Device\bf-2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\common.xsd">
+    <None Include="Connected Services\Device\common.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\deviceio.wsdl" />
-    <None Include="Connected Services\DeviceIO\devicemgmt.wsdl" />
-    <None Include="Connected Services\DeviceIO\include.xsd">
+    <None Include="Connected Services\Device\devicemgmt.wsdl" />
+    <None Include="Connected Services\Device\include.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\item.xsd">
+    <None Include="Connected Services\Device\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\onvif.xsd">
+    <None Include="Connected Services\Device\onvif.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.AddScopesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.AddScopesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.AudioOutputConfiguration.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.BackupFile.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.AudioOutputConfigurationOptions.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.BinaryData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.AudioSourceConfiguration.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Capabilities.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.AudioSourceConfigurationOptions.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Certificate.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.BackupFile.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.CertificateInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.BinaryData.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.CertificateStatus.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Capabilities.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.CreateCertificateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Capabilities1.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.CreateUsersResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Certificate.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DeleteCertificatesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.CertificateInformation.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DeleteDot1XConfigurationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.CertificateStatus.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DeleteGeoLocationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.CreateCertificateResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DeleteUsersResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.CreateUsersResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DeviceServiceCapabilities.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DeleteCertificatesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DiscoveryMode.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DeleteDot1XConfigurationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DNSInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DeleteGeoLocationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Dot11AvailableNetworks.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DeleteUsersResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Dot11Capabilities.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DeviceServiceCapabilities.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Dot11Status.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DigitalInput.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Dot1XConfiguration.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DigitalInputConfigurationOptions.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.DynamicDNSInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DiscoveryMode.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetCACertificatesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DNSInformation.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetCapabilitiesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Dot11AvailableNetworks.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetCertificateInformationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Dot11Capabilities.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetCertificatesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Dot11Status.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetCertificatesStatusResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Dot1XConfiguration.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetDeviceInformationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.DynamicDNSInformation.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetDot11CapabilitiesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioOutputConfigurationOptionsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetDot1XConfigurationsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioOutputConfigurationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetDPAddressesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioOutputsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetEndpointReferenceResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioSourceConfigurationOptionsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetGeoLocationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioSourceConfigurationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetNetworkInterfacesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetAudioSourcesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetNetworkProtocolsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetCACertificatesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetPkcs10RequestResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetCapabilitiesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetRelayOutputsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetCertificateInformationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetScopesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetCertificatesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetServicesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetCertificatesStatusResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetStorageConfigurationsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetDeviceInformationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetSystemBackupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetDigitalInputsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetSystemUrisResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetDot11CapabilitiesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetSystemUrisResponseExtension.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetDot1XConfigurationsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetUsersResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetDPAddressesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.GetWsdlUrlResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetEndpointReferenceResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.HostnameInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetGeoLocationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.IPAddressFilter.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetNetworkInterfacesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.LoadCACertificatesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetNetworkProtocolsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.LoadCertificatesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetPkcs10RequestResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.LoadCertificateWithPrivateKeyResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetRelayOutputOptionsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.LocationEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetRelayOutputsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NetworkGateway.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetRelayOutputsResponse1.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NetworkHost.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetScopesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NetworkInterface.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetSerialPortsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NetworkProtocol.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetServicesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NetworkZeroConfiguration.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetStorageConfigurationsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.NTPInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetSystemBackupResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.RelayOutput.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetSystemUrisResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.RemoteUser.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetSystemUrisResponseExtension.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.RemoveScopesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetUsersResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.RestoreSystemResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoOutputConfigurationOptionsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.ScanAvailableDot11NetworksResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoOutputConfigurationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Scope.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoOutputsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.Service.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoSourceConfigurationOptionsResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetCertificatesStatusResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoSourceConfigurationResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetDNSResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetVideoSourcesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetDPAddressesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.GetWsdlUrlResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetDynamicDNSResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.HostnameInformation.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetGeoLocationResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.IPAddressFilter.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetHostnameResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.LoadCACertificatesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetNetworkDefaultGatewayResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.LoadCertificatesResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetNetworkProtocolsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.LoadCertificateWithPrivateKeyResponse.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetNTPResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.LocationEntity.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetScopesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NetworkGateway.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SetUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NetworkHost.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.StartFirmwareUpgradeResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NetworkInterface.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.StartSystemRestoreResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NetworkProtocol.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.StorageConfiguration.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NetworkZeroConfiguration.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SupportInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.NTPInformation.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SystemDateTime.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.RelayOutput.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SystemLog.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.RelayOutputOptions.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.SystemLogUri.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.RemoteUser.datasource">
+    <None Include="Connected Services\Device\Onvif_test.Device.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.RemoveScopesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.RestoreSystemResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.ScanAvailableDot11NetworksResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Scope.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SendReceiveSerialCommandResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SerialData.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SerialPort.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SerialPortConfiguration.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SerialPortConfigurationOptions.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.Service.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetAudioOutputConfigurationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetAudioSourceConfigurationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetCertificatesStatusResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetDigitalInputConfigurationsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetDNSResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetDPAddressesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetDynamicDNSResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetGeoLocationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetHostnameResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetNetworkDefaultGatewayResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetNetworkProtocolsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetNTPResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetRelayOutputStateResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetScopesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetUserResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetVideoOutputConfigurationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SetVideoSourceConfigurationResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.StartFirmwareUpgradeResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.StartSystemRestoreResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.StorageConfiguration.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SupportInformation.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SystemDateTime.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SystemLog.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.SystemLogUri.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.User.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.VideoOutput.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.VideoOutputConfiguration.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.VideoOutputConfigurationOptions.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.VideoSourceConfiguration.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\Onvif_test.DeviceIO.VideoSourceConfigurationOptions.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\DeviceIO\t-1.xsd">
+    <None Include="Connected Services\Device\t-1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\ws-addr.xsd">
+    <None Include="Connected Services\Device\ws-addr.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\xml.xsd">
+    <None Include="Connected Services\Device\xml.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceIO\xmlmime.xsd">
+    <None Include="Connected Services\Device\xmlmime.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Media\b-2.xsd">
@@ -786,21 +665,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\DeviceIO\" />
+    <WCFMetadataStorage Include="Connected Services\Device\" />
     <WCFMetadataStorage Include="Connected Services\Media\" />
     <WCFMetadataStorage Include="Connected Services\PTZ\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DeviceIO\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DeviceIO\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DeviceIO\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\PTZ\configuration91.svcinfo" />
@@ -822,6 +689,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\Media\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Device\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Device\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Device\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
