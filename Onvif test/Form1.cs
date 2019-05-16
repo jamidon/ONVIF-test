@@ -33,7 +33,7 @@ namespace Onvif_test
 
         private void createDeviceClient()
         {
-            deviceClient = new DeviceClient(new EndpointAddress(textBoxUrl.Text), 
+            deviceClient = new DeviceClient(new EndpointAddress(textBoxUrl.Text),
                 textBoxUsername.Text, textBoxPassword.Text)
             {
                 OpenTimeout = 1000
@@ -51,7 +51,7 @@ namespace Onvif_test
 
         private void createMediaClient()
         {
-            mediaClient = new MediaClient(new EndpointAddress(textBoxUrl.Text), 
+            mediaClient = new MediaClient(new EndpointAddress(textBoxUrl.Text),
                 textBoxUsername.Text, textBoxPassword.Text)
             {
                 OpenTimeout = 1000
@@ -552,12 +552,48 @@ namespace Onvif_test
                 var mediaClient = new MediaClient(EndPointAddress, Username, Password);
                 var profile = mediaClient.GetProfile(profileToken);
 
-                ptzPanSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Max;
-                ptzPanSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Min;
-                ptzTiltSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Max;
-                ptzTiltSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Min;
-                ptzZoomSpeedMax = profile.PTZConfiguration.ZoomLimits.Range.XRange.Max;
-                ptzZoomSpeedMin = profile.PTZConfiguration.ZoomLimits.Range.XRange.Min;
+                if (!string.IsNullOrWhiteSpace(profile.PTZConfiguration.NodeToken))
+                {
+                    var node = Client.GetNode(profile.PTZConfiguration.NodeToken);
+
+                    // grab continuous move since that what we care about
+                    var cmPanTiltSpace = node.SupportedPTZSpaces.ContinuousPanTiltVelocitySpace.FirstOrDefault();
+                    if (cmPanTiltSpace != null)
+                    {
+                        ptzPanSpeedMax = cmPanTiltSpace.XRange.Max;
+                        ptzPanSpeedMin = cmPanTiltSpace.XRange.Min;
+                        ptzTiltSpeedMax = cmPanTiltSpace.YRange.Max;
+                        ptzTiltSpeedMin = cmPanTiltSpace.YRange.Min;
+                    }
+                    else
+                    {
+                        ptzPanSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Max;
+                        ptzPanSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Min;
+                        ptzTiltSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Max;
+                        ptzTiltSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Min;
+                    }
+
+                    var cmZoomSpace = node.SupportedPTZSpaces.ContinuousZoomVelocitySpace.FirstOrDefault();
+                    if (cmZoomSpace != null)
+                    {
+                        ptzZoomSpeedMax = cmZoomSpace.XRange.Max;
+                        ptzZoomSpeedMin = cmZoomSpace.XRange.Min;
+                    }
+                    else
+                    {
+                        ptzZoomSpeedMax = profile.PTZConfiguration.ZoomLimits.Range.XRange.Max;
+                        ptzZoomSpeedMin = profile.PTZConfiguration.ZoomLimits.Range.XRange.Min;
+                    }
+                }
+                else
+                {
+                    ptzPanSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Max;
+                    ptzPanSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.XRange.Min;
+                    ptzTiltSpeedMax = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Max;
+                    ptzTiltSpeedMin = profile.PTZConfiguration.PanTiltLimits.Range.YRange.Min;
+                    ptzZoomSpeedMax = profile.PTZConfiguration.ZoomLimits.Range.XRange.Max;
+                    ptzZoomSpeedMin = profile.PTZConfiguration.ZoomLimits.Range.XRange.Min;
+                }
 
                 IsInitialized = true;
             }
