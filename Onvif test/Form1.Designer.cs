@@ -99,7 +99,8 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(202, 20);
             this.textBoxUrl.TabIndex = 1;
-            this.textBoxUrl.Text = "http://10.205.6.82/onvif/services";
+            this.textBoxUrl.Text = "http://192.168.1.12:8999/onvif/services";
+            this.textBoxUrl.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // buttonGetCapabilities
             // 
@@ -126,7 +127,8 @@
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(202, 20);
             this.textBoxUsername.TabIndex = 4;
-            this.textBoxUsername.Text = "onvif";
+            this.textBoxUsername.Text = "admin";
+            this.textBoxUsername.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // label3
             // 
@@ -144,6 +146,7 @@
             this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
             this.textBoxPassword.TabIndex = 4;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // buttonZoomOut
             // 
@@ -153,7 +156,7 @@
             this.buttonZoomOut.Size = new System.Drawing.Size(30, 23);
             this.buttonZoomOut.TabIndex = 13;
             this.buttonZoomOut.Text = "z";
-            this.toolTip1.SetToolTip(this.buttonZoomOut, "zoom in");
+            this.toolTip1.SetToolTip(this.buttonZoomOut, "zoom out");
             this.buttonZoomOut.UseVisualStyleBackColor = true;
             this.buttonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonZoomOut_MouseDown);
             this.buttonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);
@@ -166,7 +169,7 @@
             this.buttonZoomIn.Size = new System.Drawing.Size(30, 23);
             this.buttonZoomIn.TabIndex = 13;
             this.buttonZoomIn.Text = "Z";
-            this.toolTip1.SetToolTip(this.buttonZoomIn, "zoom out");
+            this.toolTip1.SetToolTip(this.buttonZoomIn, "zoom in");
             this.buttonZoomIn.UseVisualStyleBackColor = true;
             this.buttonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonZoomIn_MouseDown);
             this.buttonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonMove_MouseUp);

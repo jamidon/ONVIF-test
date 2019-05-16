@@ -19,7 +19,7 @@ namespace Onvif_test
             InitializeComponent();
         }
 
-        PtzClient ptzClient { get; set; }
+        PTZClient ptzClient { get; set; }
         PTZ.PTZPreset[] ptzPresets { get; set; }
         PTZ.PTZStatus ptzStatus { get; set; }
 
@@ -34,19 +34,28 @@ namespace Onvif_test
         private void createDeviceClient()
         {
             deviceClient = new DeviceClient(new EndpointAddress(textBoxUrl.Text), 
-                textBoxUsername.Text, textBoxPassword.Text);
+                textBoxUsername.Text, textBoxPassword.Text)
+            {
+                OpenTimeout = 1000
+            };
         }
 
         private void createPtzClient()
         {
-            ptzClient = new PtzClient(new EndpointAddress(textBoxUrl.Text), 
-                textBoxUsername.Text, textBoxPassword.Text);
+            ptzClient = new PTZClient(new EndpointAddress(textBoxUrl.Text),
+                textBoxUsername.Text, textBoxPassword.Text)
+            {
+                OpenTimeout = 1000
+            };
         }
 
         private void createMediaClient()
         {
             mediaClient = new MediaClient(new EndpointAddress(textBoxUrl.Text), 
-                textBoxUsername.Text, textBoxPassword.Text);
+                textBoxUsername.Text, textBoxPassword.Text)
+            {
+                OpenTimeout = 1000
+            };
         }
 
         private void buttonGetCapabilities_Click(object sender, EventArgs e)
@@ -70,8 +79,11 @@ namespace Onvif_test
             {
                 serviceCapabilities = deviceClient.GetServiceCapabilities();
                 comboBoxAuxCommands.Items.Clear();
-                comboBoxAuxCommands.Items.AddRange(serviceCapabilities.Misc.AuxiliaryCommands);
-                comboBoxAuxCommands.Enabled = comboBoxAuxCommands.Items.Count > 0;
+                if (serviceCapabilities.Misc != null && serviceCapabilities.Misc.AuxiliaryCommands != null)
+                {
+                    comboBoxAuxCommands.Items.AddRange(serviceCapabilities.Misc.AuxiliaryCommands);
+                    comboBoxAuxCommands.Enabled = comboBoxAuxCommands.Items.Count > 0;
+                }
             }
             catch (Exception ex)
             {
@@ -107,7 +119,16 @@ namespace Onvif_test
             {
                 createPtzClient();
             }
-            this.mediaProfiles = mediaClient.GetProfiles();
+            try
+            {
+                this.mediaProfiles = mediaClient.GetProfiles();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetProfiles failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (mediaProfiles.Length > 0)
             {
                 this.toolTip1.SetToolTip(sender as Button,
@@ -429,16 +450,54 @@ namespace Onvif_test
             var response = deviceClient.SendAuxCommand(comboBoxAuxCommands.SelectedItem.ToString());
             MessageBox.Show("Send Aux Command", response, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void endpoint_TextChanged(object sender, EventArgs e)
+        {
+            ptzClient = null;
+            mediaClient = null;
+            deviceClient = null;
+        }
     }
 
-    sealed public class PtzClient
+    sealed public class PTZClient
     {
         private PTZ.PTZClient Client { get; set; }
         private EndpointAddress EndPointAddress { get; set; }
         private string Username { get; set; }
         private string Password { get; set; }
 
-        public PtzClient(EndpointAddress epa, string username, string password)
+        public int OpenTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.OpenTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.OpenTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+        public int SendTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.SendTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+
+        public PTZClient(EndpointAddress epa, string username, string password)
         {
             EndPointAddress = epa;
             Username = username;
@@ -459,12 +518,17 @@ namespace Onvif_test
             Client = new PTZ.PTZClient(bind, epa);
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+                var behavior = new PasswordDigestBehavior(username, password);
+                Client.Endpoint.EndpointBehaviors.Add(behavior);
             }
 
             // not initialized
             IsInitialized = false;
         }
+
+        public PTZClient(string uri, string username, string password)
+            : this(new EndpointAddress(uri), username, password)
+        { }
 
         private bool IsInitialized { get; set; }
 
@@ -592,6 +656,13 @@ namespace Onvif_test
         {
             Client.RemovePreset(profileToken, presetToken);
         }
+        public void DeletePresetByName(string profileToken, string presetName)
+        {
+            var presets = GetPresets(profileToken);
+            var preset = presets.Where(p => p.Name == presetName).FirstOrDefault();
+
+            DeletePreset(profileToken, preset.token);
+        }
 
         public PTZ.PTZPreset[] GetPresets(string profileToken)
         {
@@ -606,16 +677,39 @@ namespace Onvif_test
     sealed public class MediaClient
     {
         private Media.MediaClient Client { get; set; }
-        private EndpointAddress EndPointAddress { get; set; }
-        private string Username { get; set; }
-        private string Password { get; set; }
+        public int OpenTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.OpenTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.OpenTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+        public int SendTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.SendTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
 
         public MediaClient(EndpointAddress epa, string username, string password)
         {
-            EndPointAddress = epa;
-            Username = username;
-            Password = password;
-
             var httpBinding = new HttpTransportBindingElement
             {
                 AuthenticationScheme = AuthenticationSchemes.Digest
@@ -631,9 +725,14 @@ namespace Onvif_test
             Client = new Media.MediaClient(bind, epa);
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+                var behavior = new PasswordDigestBehavior(username, password);
+                Client.Endpoint.EndpointBehaviors.Add(behavior);
             }
         }
+
+        public MediaClient(string uri, string username, string password)
+            : this(new EndpointAddress(uri), username, password)
+        { }
 
         public Media.Profile[] GetProfiles()
         {
@@ -688,6 +787,37 @@ namespace Onvif_test
         private string Username { get; set; }
         private string Password { get; set; }
 
+        public int OpenTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.OpenTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.OpenTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+        public int SendTimeout
+        {
+            get
+            {
+                if (Client == null || Client.Endpoint == null)
+                {
+                    throw new InvalidOperationException("internal object is null");
+                }
+                return Convert.ToInt32(Client.Endpoint.Binding.SendTimeout.TotalMilliseconds);
+            }
+            set
+            {
+                Client.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+
         public DeviceClient(EndpointAddress epa, string username, string password)
         {
             EndPointAddress = epa;
@@ -713,6 +843,10 @@ namespace Onvif_test
             }
         }
 
+        public DeviceClient(string uri, string username, string password)
+            : this(new EndpointAddress(uri), username, password)
+        { }
+
         public Device.Scope[] GetScopes()
         {
             return Client.GetScopes();
@@ -729,11 +863,10 @@ namespace Onvif_test
         {
             return Client.GetCapabilities(new[] { Device.CapabilityCategory.All });
         }
-        public void GetDeviceInformation(out string model, out string firmwareVersion, out string serialNumber, out string hardwareId)
+        public string GetDeviceInformation(out string model, out string firmwareVersion, out string serialNumber, out string hardwareId)
         {
-            Client.GetDeviceInformation(out model, out firmwareVersion, out serialNumber, out hardwareId);
+            return Client.GetDeviceInformation(out model, out firmwareVersion, out serialNumber, out hardwareId);
         }
-
         public string SendAuxCommand(string auxCommand)
         {
             return Client.SendAuxiliaryCommand(auxCommand);
