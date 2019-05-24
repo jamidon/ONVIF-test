@@ -441,7 +441,10 @@ namespace Onvif_test
         private void buttonGoAuxCommand_Click(object sender, EventArgs e)
         {
             var response = deviceClient.SendAuxCommand(comboBoxAuxCommands.SelectedItem.ToString());
-            MessageBox.Show("Send Aux Command", response, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                MessageBox.Show(response, "Send Aux Command", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void endpoint_TextChanged(object sender, EventArgs e)
