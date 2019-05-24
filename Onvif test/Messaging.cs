@@ -21,7 +21,7 @@ namespace Onvif_test
             Username = username;
             Password = password;
         }
-        public override bool MustUnderstand => true;
+        public override bool MustUnderstand => false;
         public override string Name => "Security";
         public override string Namespace => "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
         protected override void OnWriteHeaderContents(XmlDictionaryWriter writer, MessageVersion messageVersion)
@@ -108,7 +108,7 @@ namespace Onvif_test
             this.Password = password;
         }
 
-        #region IClientMessageInspector Members
+#region IClientMessageInspector Members
 
         public void AfterReceiveReply(ref System.ServiceModel.Channels.Message reply, object correlationState)
         {
@@ -124,7 +124,7 @@ namespace Onvif_test
             return Convert.DBNull;
         }
 
-        #endregion
+#endregion
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ namespace Onvif_test
             this.Password = password;
         }
 
-        #region IEndpointBehavior Members
+#region IEndpointBehavior Members
 
         public void AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
         {
@@ -163,6 +163,6 @@ namespace Onvif_test
             //throw new NotImplementedException();
         }
 
-        #endregion
+#endregion
     }
 }
