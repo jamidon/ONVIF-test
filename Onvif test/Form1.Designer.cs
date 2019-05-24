@@ -99,7 +99,7 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(202, 20);
             this.textBoxUrl.TabIndex = 1;
-            this.textBoxUrl.Text = "http://192.168.1.12:8999/onvif/services";
+            this.textBoxUrl.Text = "http://192.168.1.113/onvif/media_service";
             this.textBoxUrl.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // buttonGetCapabilities
@@ -127,7 +127,7 @@
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(202, 20);
             this.textBoxUsername.TabIndex = 4;
-            this.textBoxUsername.Text = "admin";
+            this.textBoxUsername.Text = "onvif";
             this.textBoxUsername.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // label3
@@ -145,6 +145,7 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
             this.textBoxPassword.TabIndex = 4;
+            this.textBoxPassword.Text = "seeatms";
             this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
