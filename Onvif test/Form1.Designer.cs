@@ -76,12 +76,28 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Streams = new System.Windows.Forms.Label();
             this.vlcControl1 = new Vlc.DotNet.Forms.VlcControl();
+            this.buttonGetVapix3Aux = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.buttonGoAuxCommandVapix3 = new System.Windows.Forms.Button();
+            this.comboBoxAuxCommandsVapix3 = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBoxUsernameVapix3 = new System.Windows.Forms.TextBox();
+            this.textBoxPasswordVapix3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxCameraIpAddress = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarMoveSpeed)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl1)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -89,9 +105,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ONVIF URL";
+            this.label1.Text = "URI";
             // 
             // textBoxUrl
             // 
@@ -99,7 +115,7 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(202, 20);
             this.textBoxUrl.TabIndex = 1;
-            this.textBoxUrl.Text = "http://192.168.1.113/onvif/media_service";
+            this.textBoxUrl.Text = "onvif/services";
             this.textBoxUrl.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // buttonGetCapabilities
@@ -331,9 +347,9 @@
             this.groupBox1.Controls.Add(this.buttonGetCapabilities);
             this.groupBox1.Controls.Add(this.buttonGetProfiles);
             this.groupBox1.Controls.Add(this.buttonGetPresets);
-            this.groupBox1.Location = new System.Drawing.Point(9, 123);
+            this.groupBox1.Location = new System.Drawing.Point(3, 96);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 169);
+            this.groupBox1.Size = new System.Drawing.Size(285, 169);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Get";
@@ -427,15 +443,17 @@
             this.groupBox2.Controls.Add(this.textBoxUsername);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBoxUrl);
+            this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Controls.Add(this.textBoxPassword);
-            this.groupBox2.Location = new System.Drawing.Point(9, 12);
+            this.groupBox2.Location = new System.Drawing.Point(9, 34);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(291, 105);
+            this.groupBox2.Size = new System.Drawing.Size(294, 485);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Camera";
+            this.groupBox2.Text = "ONVIF";
             // 
             // groupBox3
             // 
@@ -452,9 +470,9 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.buttonPresetGo);
             this.groupBox3.Controls.Add(this.comboBoxProfileTokens);
-            this.groupBox3.Location = new System.Drawing.Point(9, 298);
+            this.groupBox3.Location = new System.Drawing.Point(3, 271);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(294, 206);
+            this.groupBox3.Size = new System.Drawing.Size(285, 206);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Commands";
@@ -593,26 +611,161 @@
             // 
             // vlcControl1
             // 
+            this.vlcControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vlcControl1.BackColor = System.Drawing.Color.Black;
-            this.vlcControl1.Location = new System.Drawing.Point(310, 12);
+            this.vlcControl1.Location = new System.Drawing.Point(309, 0);
             this.vlcControl1.Name = "vlcControl1";
-            this.vlcControl1.Size = new System.Drawing.Size(626, 492);
+            this.vlcControl1.Size = new System.Drawing.Size(635, 736);
             this.vlcControl1.Spu = -1;
             this.vlcControl1.TabIndex = 14;
             this.vlcControl1.Text = "vlcControl1";
             this.vlcControl1.VlcLibDirectory = ((System.IO.DirectoryInfo)(resources.GetObject("vlcControl1.VlcLibDirectory")));
             this.vlcControl1.VlcMediaplayerOptions = null;
-            this.vlcControl1.EncounteredError += new System.EventHandler<Vlc.DotNet.Core.VlcMediaPlayerEncounteredErrorEventArgs>(this.vlcControl1_EncounteredError);
+            // 
+            // buttonGetVapix3Aux
+            // 
+            this.buttonGetVapix3Aux.Location = new System.Drawing.Point(6, 19);
+            this.buttonGetVapix3Aux.Name = "buttonGetVapix3Aux";
+            this.buttonGetVapix3Aux.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetVapix3Aux.TabIndex = 14;
+            this.buttonGetVapix3Aux.Text = "Aux ";
+            this.buttonGetVapix3Aux.UseVisualStyleBackColor = true;
+            this.buttonGetVapix3Aux.Click += new System.EventHandler(this.buttonGetVapix3Aux_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.groupBox7);
+            this.groupBox5.Controls.Add(this.groupBox6);
+            this.groupBox5.Controls.Add(this.textBoxUsernameVapix3);
+            this.groupBox5.Controls.Add(this.textBoxPasswordVapix3);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Location = new System.Drawing.Point(9, 525);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(294, 200);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Vapix3";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.buttonGoAuxCommandVapix3);
+            this.groupBox7.Controls.Add(this.comboBoxAuxCommandsVapix3);
+            this.groupBox7.Controls.Add(this.label12);
+            this.groupBox7.Location = new System.Drawing.Point(6, 133);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(272, 56);
+            this.groupBox7.TabIndex = 6;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Commands";
+            // 
+            // buttonGoAuxCommandVapix3
+            // 
+            this.buttonGoAuxCommandVapix3.Enabled = false;
+            this.buttonGoAuxCommandVapix3.Location = new System.Drawing.Point(191, 19);
+            this.buttonGoAuxCommandVapix3.Name = "buttonGoAuxCommandVapix3";
+            this.buttonGoAuxCommandVapix3.Size = new System.Drawing.Size(75, 23);
+            this.buttonGoAuxCommandVapix3.TabIndex = 16;
+            this.buttonGoAuxCommandVapix3.Text = "Go";
+            this.buttonGoAuxCommandVapix3.UseVisualStyleBackColor = true;
+            this.buttonGoAuxCommandVapix3.Click += new System.EventHandler(this.buttonGoAuxCommandVapix3_Click);
+            // 
+            // comboBoxAuxCommandsVapix3
+            // 
+            this.comboBoxAuxCommandsVapix3.Enabled = false;
+            this.comboBoxAuxCommandsVapix3.FormattingEnabled = true;
+            this.comboBoxAuxCommandsVapix3.Location = new System.Drawing.Point(37, 21);
+            this.comboBoxAuxCommandsVapix3.Name = "comboBoxAuxCommandsVapix3";
+            this.comboBoxAuxCommandsVapix3.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxAuxCommandsVapix3.TabIndex = 15;
+            this.comboBoxAuxCommandsVapix3.SelectedIndexChanged += new System.EventHandler(this.comboBoxAuxCommands_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 24);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(25, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Aux";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.buttonGetVapix3Aux);
+            this.groupBox6.Location = new System.Drawing.Point(6, 72);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(272, 54);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Get";
+            // 
+            // textBoxUsernameVapix3
+            // 
+            this.textBoxUsernameVapix3.Location = new System.Drawing.Point(76, 20);
+            this.textBoxUsernameVapix3.Name = "textBoxUsernameVapix3";
+            this.textBoxUsernameVapix3.Size = new System.Drawing.Size(202, 20);
+            this.textBoxUsernameVapix3.TabIndex = 4;
+            this.textBoxUsernameVapix3.Text = "root";
+            this.textBoxUsernameVapix3.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
+            // 
+            // textBoxPasswordVapix3
+            // 
+            this.textBoxPasswordVapix3.Location = new System.Drawing.Point(76, 46);
+            this.textBoxPasswordVapix3.Name = "textBoxPasswordVapix3";
+            this.textBoxPasswordVapix3.Size = new System.Drawing.Size(202, 20);
+            this.textBoxPasswordVapix3.TabIndex = 4;
+            this.textBoxPasswordVapix3.Text = "seeatms";
+            this.textBoxPasswordVapix3.UseSystemPasswordChar = true;
+            this.textBoxPasswordVapix3.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(17, 49);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 13);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Password";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Username";
+            // 
+            // textBoxCameraIpAddress
+            // 
+            this.textBoxCameraIpAddress.Location = new System.Drawing.Point(85, 12);
+            this.textBoxCameraIpAddress.Name = "textBoxCameraIpAddress";
+            this.textBoxCameraIpAddress.Size = new System.Drawing.Size(202, 20);
+            this.textBoxCameraIpAddress.TabIndex = 1;
+            this.textBoxCameraIpAddress.Text = "10.131.6.141";
+            this.textBoxCameraIpAddress.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 15);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Camera IP";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 515);
-            this.Controls.Add(this.vlcControl1);
-            this.Controls.Add(this.groupBox3);
+            this.ClientSize = new System.Drawing.Size(944, 736);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxCameraIpAddress);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.vlcControl1);
             this.Name = "Form1";
             this.Text = "ONVIF Test";
             this.groupBox1.ResumeLayout(false);
@@ -625,7 +778,13 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -653,7 +812,6 @@
         private System.Windows.Forms.Button buttonGoStream;
         private System.Windows.Forms.ComboBox comboBoxStreamURIs;
         private System.Windows.Forms.Label Streams;
-        private Vlc.DotNet.Forms.VlcControl vlcControl1;
         private System.Windows.Forms.Button buttonGetStatus;
         private System.Windows.Forms.Button buttonGoToStatus;
         private System.Windows.Forms.Button buttonMoveDown;
@@ -677,6 +835,20 @@
         private System.Windows.Forms.Button buttonGoAuxCommand;
         private System.Windows.Forms.ComboBox comboBoxAuxCommands;
         private System.Windows.Forms.Label label8;
+        private Vlc.DotNet.Forms.VlcControl vlcControl1;
+        private System.Windows.Forms.Button buttonGetVapix3Aux;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button buttonGoAuxCommandVapix3;
+        private System.Windows.Forms.ComboBox comboBoxAuxCommandsVapix3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox textBoxUsernameVapix3;
+        private System.Windows.Forms.TextBox textBoxPasswordVapix3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxCameraIpAddress;
+        private System.Windows.Forms.Label label11;
     }
 }
 

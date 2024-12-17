@@ -24,9 +24,20 @@ namespace Onvif_test
         Device.DeviceServiceCapabilities serviceCapabilities { get; set; }
         Device.Capabilities capabilities { get; set; }
 
+        Vapix3Client vapix3Client { get; set; }
+        string[] vapix3AuxFunctions { get; set; }
+
+        string OnvifUri
+        {
+            get
+            {
+                return string.Format("http://{0}/{1}", textBoxCameraIpAddress.Text, textBoxUrl.Text);
+            }
+        }
+
         private void createDeviceClient()
         {
-            deviceClient = new DeviceClient(new EndpointAddress(textBoxUrl.Text),
+            deviceClient = new DeviceClient(new EndpointAddress(OnvifUri),
                 textBoxUsername.Text, textBoxPassword.Text)
             {
                 OpenTimeout = 1000
@@ -35,7 +46,7 @@ namespace Onvif_test
 
         private void createPtzClient()
         {
-            ptzClient = new PTZClient(new EndpointAddress(textBoxUrl.Text),
+            ptzClient = new PTZClient(new EndpointAddress(OnvifUri),
                 textBoxUsername.Text, textBoxPassword.Text)
             {
                 OpenTimeout = 1000
@@ -44,11 +55,17 @@ namespace Onvif_test
 
         private void createMediaClient()
         {
-            mediaClient = new MediaClient(new EndpointAddress(textBoxUrl.Text),
+            mediaClient = new MediaClient(new EndpointAddress(OnvifUri),
                 textBoxUsername.Text, textBoxPassword.Text)
             {
                 OpenTimeout = 1000
             };
+        }
+
+        private void createVapix3Client()
+        {
+            vapix3Client = new Vapix3Client(textBoxCameraIpAddress.Text,
+                textBoxUsernameVapix3.Text, textBoxPasswordVapix3.Text);
         }
 
         private void buttonGetCapabilities_Click(object sender, EventArgs e)
@@ -452,6 +469,46 @@ namespace Onvif_test
             ptzClient = null;
             mediaClient = null;
             deviceClient = null;
+            vapix3Client = null;
+        }
+
+        private void buttonGetVapix3Aux_Click(object sender, EventArgs e)
+        {
+            if (vapix3Client == null)
+            {
+                createVapix3Client();
+            }
+
+            try
+            {
+                vapix3AuxFunctions = vapix3Client.GetAuxFunctions();
+
+                comboBoxAuxCommandsVapix3.Items.Clear();
+                comboBoxAuxCommandsVapix3.Items.AddRange(vapix3AuxFunctions);
+                comboBoxAuxCommandsVapix3.Enabled = true;
+                buttonGoAuxCommandVapix3.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetAuxFunctions failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonGoAuxCommandVapix3_Click(object sender, EventArgs e)
+        {
+            if (vapix3Client == null)
+            {
+                createVapix3Client();
+            }
+
+            try
+            {
+                var response = vapix3Client.SendAuxCommand(comboBoxAuxCommandsVapix3.SelectedItem.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "SendAuxCommand failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

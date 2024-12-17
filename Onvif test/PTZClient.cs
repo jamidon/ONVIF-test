@@ -13,6 +13,7 @@ namespace Onvif_test
 {
     sealed public class PTZClient
     {
+        private DeviceTime DeviceTime { get; set; }
         private PTZ.PTZClient Client { get; set; }
         private EndpointAddress EndPointAddress { get; set; }
         private string Username { get; set; }
@@ -51,6 +52,9 @@ namespace Onvif_test
 
         public PTZClient(EndpointAddress epa, string username, string password)
         {
+            // create a device time object
+            DeviceTime = new DeviceTime(epa.Uri);
+
             EndPointAddress = epa;
             Username = username;
             Password = password;
@@ -70,8 +74,12 @@ namespace Onvif_test
             Client = new PTZ.PTZClient(bind, epa);
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                var behavior = new PasswordDigestBehavior(username, password);
-                Client.Endpoint.EndpointBehaviors.Add(behavior);
+                var pdb = new PasswordDigestBehavior(username, password);
+                pdb.callback += () =>
+                {
+                    return DeviceTime.DeviceTimestamp();
+                };
+                Client.Endpoint.EndpointBehaviors.Add(pdb);
             }
 
             // not initialized
@@ -243,6 +251,13 @@ namespace Onvif_test
         public void DeletePreset(string profileToken, string presetToken)
         {
             Client.RemovePreset(profileToken, presetToken);
+        }
+        public void DeletePresetByName(string profileToken, string presetName)
+        {
+            var presets = GetPresets(profileToken);
+            var preset = presets.Where(p => p.Name == presetName).FirstOrDefault();
+
+            DeletePreset(profileToken, preset.token);
         }
 
         public PTZ.PTZPreset[] GetPresets(string profileToken)

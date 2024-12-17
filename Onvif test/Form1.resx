@@ -123,8 +123,9 @@
   <data name="vlcControl1.VlcLibDirectory" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAEAQAAABdTeXN0ZW0uSU8uRGlyZWN0b3J5SW5mbwIAAAAMT3JpZ2luYWxQ
-        YXRoCEZ1bGxQYXRoAQEGAgAAAFlDOlxVc2Vyc1xqYW1pZG9uXHNvdXJjZVxyZXBvc1xPbnZpZiB0ZXN0
-        XHBhY2thZ2VzXFZpZGVvTEFOLkxpYlZMQy5XaW5kb3dzLjMuMC42XGJ1aWxkXHg4NgkCAAAACw==
+        YXRoCEZ1bGxQYXRoAQEGAgAAAGNDOlxVc2Vyc1xqYW1pZG9uXHNvdXJjZVxyZXBvc1xPbnZpZiB0ZXN0
+        IC0gZnVja2VkXHBhY2thZ2VzXFZpZGVvTEFOLkxpYlZMQy5XaW5kb3dzLjMuMC4xOFxidWlsZFx4ODYJ
+        AgAAAAs=
 </value>
   </data>
 </root>

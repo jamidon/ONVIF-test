@@ -13,14 +13,20 @@ namespace Onvif_test
     // I was able to eliminate using the crusty Microsoft.Web.Services3 assembly
     public class SecurityHeader: MessageHeader
     {
-        private string Username { get; set; }
-        private string Password { get; set; }
-
-        public SecurityHeader(string username, string password)
+        private PasswordDigestBehavior PasswordDigestBehavior { get; set; }
+        string Username { get { return PasswordDigestBehavior.Username; } }
+        string Password { get { return PasswordDigestBehavior.Password; } }
+        DateTime Created { get { return PasswordDigestBehavior.GetCreated(); } }
+        public SecurityHeader(PasswordDigestBehavior passwordDigestBehavior)
         {
-            Username = username;
-            Password = password;
+            this.PasswordDigestBehavior = passwordDigestBehavior;
         }
+
+        //public SecurityHeader(string username, string password)
+        //{
+        //    Username = username;
+        //    Password = password;
+        //}
         public override bool MustUnderstand => false;
         public override string Name => "Security";
         public override string Namespace => "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
@@ -30,7 +36,8 @@ namespace Onvif_test
             byte[] nonce = GenerateNonce();
 
             // Create the Created Date
-            string created = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            //string created = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            var created = this.Created.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
 
             // Create the WSSE Security Header, starting with the Username Element
             writer.WriteStartElement("wsse", "UsernameToken", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
@@ -99,16 +106,22 @@ namespace Onvif_test
 
     public class PasswordDigestMessageInspector : IClientMessageInspector
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-        public PasswordDigestMessageInspector(string username, string password)
+        private PasswordDigestBehavior PasswordDigestBehavior { get; set; }
+        string Username { get { return PasswordDigestBehavior.Username; } }
+        string Password { get { return PasswordDigestBehavior.Password; } }
+        DateTime Created { get { return PasswordDigestBehavior.GetCreated(); } }
+        public PasswordDigestMessageInspector(PasswordDigestBehavior passwordDigestBehavior)
         {
-            this.Username = username;
-            this.Password = password;
+            this.PasswordDigestBehavior = passwordDigestBehavior;
         }
 
-#region IClientMessageInspector Members
+        //public PasswordDigestMessageInspector(string username, string password)
+        //{
+        //    this.Username = username;
+        //    this.Password = password;
+        //}
+
+        #region IClientMessageInspector Members
 
         public void AfterReceiveReply(ref System.ServiceModel.Channels.Message reply, object correlationState)
         {
@@ -117,14 +130,15 @@ namespace Onvif_test
 
         public object BeforeSendRequest(ref System.ServiceModel.Channels.Message request, System.ServiceModel.IClientChannel channel)
         {
-            var securityHeader = new SecurityHeader(Username, Password);
+            //var securityHeader = new SecurityHeader(Username, Password);
+            var securityHeader = new SecurityHeader(PasswordDigestBehavior);
             request.Headers.Add(securityHeader);
 
             // complete
             return Convert.DBNull;
         }
 
-#endregion
+        #endregion
     }
 
     /// <summary>
@@ -132,8 +146,11 @@ namespace Onvif_test
     /// </summary>
     public class PasswordDigestBehavior : IEndpointBehavior
     {
+        public delegate DateTime GetCreatedDateTime();
+
         public string Username { get; set; }
         public string Password { get; set; }
+        public GetCreatedDateTime callback;
 
         public PasswordDigestBehavior(string username, string password)
         {
@@ -141,7 +158,19 @@ namespace Onvif_test
             this.Password = password;
         }
 
-#region IEndpointBehavior Members
+        public DateTime GetCreated()
+        {
+            // if no callback assume the current time
+            if (callback == null)
+            {
+                return DateTime.UtcNow;
+            }
+
+            // get the time from the callback
+            return callback();
+        }
+
+        #region IEndpointBehavior Members
 
         public void AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
         {
@@ -150,7 +179,7 @@ namespace Onvif_test
 
         public void ApplyClientBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(new PasswordDigestMessageInspector(this.Username, this.Password));
+            clientRuntime.MessageInspectors.Add(new PasswordDigestMessageInspector(this));
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)

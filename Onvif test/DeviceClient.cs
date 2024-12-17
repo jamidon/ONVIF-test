@@ -13,6 +13,7 @@ namespace Onvif_test
 {
     sealed public class DeviceClient
     {
+        private DeviceTime DeviceTime { get; set; }
         private Device.DeviceClient Client { get; set; }
         private EndpointAddress EndPointAddress { get; set; }
         private string Username { get; set; }
@@ -51,18 +52,20 @@ namespace Onvif_test
 
         public DeviceClient(EndpointAddress epa, string username, string password)
         {
+            // create a device time object
+            DeviceTime = new DeviceTime(epa.Uri);
+
             EndPointAddress = epa;
             Username = username;
             Password = password;
 
-            var httpBinding = new HttpTransportBindingElement
-            {
-                AuthenticationScheme = AuthenticationSchemes.Digest
-            };
-
             var messageElement = new TextMessageEncodingBindingElement
             {
                 MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
+            };
+            var httpBinding = new HttpTransportBindingElement
+            {
+                AuthenticationScheme = AuthenticationSchemes.Digest
             };
 
             var bind = new CustomBinding(messageElement, httpBinding);
@@ -70,13 +73,30 @@ namespace Onvif_test
             Client = new Device.DeviceClient(bind, epa);
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Client.Endpoint.EndpointBehaviors.Add(new PasswordDigestBehavior(username, password));
+                var pdb = new PasswordDigestBehavior(username, password);
+                pdb.callback += () =>
+                {
+                    return DeviceTime.DeviceTimestamp();
+                };
+                Client.Endpoint.EndpointBehaviors.Add(pdb);
             }
         }
 
         public DeviceClient(string uri, string username, string password)
             : this(new EndpointAddress(uri), username, password)
         { }
+
+        public DeviceClient(string uri)
+            : this(new EndpointAddress(uri), string.Empty, string.Empty)
+        { }
+
+        public DateTime GetDeviceDateTime()
+        {
+            var dt = Client.GetSystemDateAndTime();
+
+            return new DateTime(dt.UTCDateTime.Date.Year, dt.UTCDateTime.Date.Month, dt.UTCDateTime.Date.Day,
+                dt.UTCDateTime.Time.Hour, dt.UTCDateTime.Time.Minute, dt.UTCDateTime.Time.Second, DateTimeKind.Utc);
+        }
 
         public Device.Scope[] GetScopes()
         {
@@ -101,6 +121,12 @@ namespace Onvif_test
         public string SendAuxCommand(string auxCommand)
         {
             return Client.SendAuxiliaryCommand(auxCommand);
+        }
+
+        static public DateTime GetDeviceDateTime(string uri)
+        {
+            var client = new DeviceClient(uri);
+            return client.GetDeviceDateTime();
         }
     }
 }

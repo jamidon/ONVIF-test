@@ -13,6 +13,7 @@ namespace Onvif_test
 {
     sealed public class MediaClient
     {
+        private DeviceTime DeviceTime { get; set; }
         private Media.MediaClient Client { get; set; }
         public int OpenTimeout
         {
@@ -47,6 +48,9 @@ namespace Onvif_test
 
         public MediaClient(EndpointAddress epa, string username, string password)
         {
+            // create a device time object
+            DeviceTime = new DeviceTime(epa.Uri);
+
             var httpBinding = new HttpTransportBindingElement
             {
                 AuthenticationScheme = AuthenticationSchemes.Digest
@@ -62,8 +66,12 @@ namespace Onvif_test
             Client = new Media.MediaClient(bind, epa);
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                var behavior = new PasswordDigestBehavior(username, password);
-                Client.Endpoint.EndpointBehaviors.Add(behavior);
+                var pdb = new PasswordDigestBehavior(username, password);
+                pdb.callback += () =>
+                {
+                    return DeviceTime.DeviceTimestamp();
+                };
+                Client.Endpoint.EndpointBehaviors.Add(pdb);
             }
         }
 
