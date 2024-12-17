@@ -29,7 +29,7 @@ namespace Onvif_test
 
         public Vapix3Client(string address, string username, string password)
         {
-            IpAddress = address;
+            IpAddress = address.Trim();
             Username = username;
             Password = password;
             DropId = 1;

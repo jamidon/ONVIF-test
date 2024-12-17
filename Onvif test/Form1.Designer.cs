@@ -161,7 +161,6 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
             this.textBoxPassword.TabIndex = 4;
-            this.textBoxPassword.Text = "seeatms";
             this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
@@ -716,7 +715,6 @@
             this.textBoxPasswordVapix3.Name = "textBoxPasswordVapix3";
             this.textBoxPasswordVapix3.Size = new System.Drawing.Size(202, 20);
             this.textBoxPasswordVapix3.TabIndex = 4;
-            this.textBoxPasswordVapix3.Text = "seeatms";
             this.textBoxPasswordVapix3.UseSystemPasswordChar = true;
             this.textBoxPasswordVapix3.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
@@ -744,7 +742,6 @@
             this.textBoxCameraIpAddress.Name = "textBoxCameraIpAddress";
             this.textBoxCameraIpAddress.Size = new System.Drawing.Size(202, 20);
             this.textBoxCameraIpAddress.TabIndex = 1;
-            this.textBoxCameraIpAddress.Text = "10.131.6.141";
             this.textBoxCameraIpAddress.TextChanged += new System.EventHandler(this.endpoint_TextChanged);
             // 
             // label11

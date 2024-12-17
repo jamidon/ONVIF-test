@@ -31,7 +31,7 @@ namespace Onvif_test
         {
             get
             {
-                return string.Format("http://{0}/{1}", textBoxCameraIpAddress.Text, textBoxUrl.Text);
+                return string.Format("http://{0}/{1}", textBoxCameraIpAddress.Text.Trim(), textBoxUrl.Text);
             }
         }
 
